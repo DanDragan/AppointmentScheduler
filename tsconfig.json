@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "ES6",
+      "esModuleInterop": true,
+      "strict": true,
+      "skipLibCheck": true, // Optionally, you can set this to true if you face issues with types
+      "outDir": "./dist",
+      "rootDir": "./src"
+    },
+    "include": [
+      "src/**/*.ts",
+      "node_modules/mongoose" // Ensure node_modules are included
+    ]
+  }
+  

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Appointment Scheduler</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dental Appointment Scheduler</h1>
+
+        <form id="appointment-form">
+            <input type="text" id="name" placeholder="Enter your name" required />
+            <input type="date" id="date" required />
+            <select id="time" required>
+                <option value="">Select time</option>
+                <option value="9:00">9:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+            </select>
+            <button type="submit">Book Appointment</button>
+        </form>
+
+        <div id="appointments-list">
+            <h2>Existing Appointments</h2>
+            <ul id="appointments"></ul>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('appointment-form');
+        const nameInput = document.getElementById('name');
+        const dateInput = document.getElementById('date');
+        const timeInput = document.getElementById('time');
+        const appointmentsList = document.getElementById('appointments');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = nameInput.value;
+            const date = dateInput.value;
+            const time = timeInput.value;
+
+            const response = await fetch('/api/appointments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, date, time }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('Appointment booked!');
+                loadAppointments();
+            } else {
+                alert(data.message);
+            }
+        });
+
+        async function loadAppointments() {
+            const response = await fetch('/api/appointments');
+            const data = await response.json();
+
+            appointmentsList.innerHTML = '';
+            data.forEach(appointment => {
+                const li = document.createElement('li');
+                li.innerHTML = `${appointment.name} - ${appointment.date} at ${appointment.time}
+                    <button onclick="deleteAppointment('${appointment._id}')">Delete</button>`;
+                appointmentsList.appendChild(li);
+            });
+        }
+
+        async function deleteAppointment(id) {
+            const response = await fetch(`/api/appointments/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                alert('Appointment deleted');
+                loadAppointments();
+            } else {
+                alert('Error deleting appointment');
+            }
+        }
+
+        loadAppointments();
+    </script>
+</body>
+</html>
