@@ -1,3 +1,4 @@
+/* Existing CSS */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,45 +7,89 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom right, #82dbe6, #84e2ee); /* Soft green gradient */
     padding: 20px;
+    height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
 }
 
 .container {
     max-width: 600px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
+    width: 100%; /* Allow the container to expand fully within the screen width */
+    height: auto; /* Allow the container to grow with its content */
+    background-color: #fff; /* White background for the form container */
+    padding: 30px; /* Increased padding for spacing */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between form elements */
 }
 
 h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 30px; /* Added more space after title */
 }
 
 form {
     display: flex;
     flex-direction: column;
+    gap: 20px; /* Added space between form elements */
+}
+
+form input, form select, form button {
+    margin-bottom: 15px; /* Same margin for all inputs, selects, and buttons */
+}
+
+form button {
+    margin-bottom: 0; /* Remove margin from the last button */
+}
+
+.name-fields {
+    display: block; /* Change to block to stack inputs vertically */
+    margin-bottom: 10px; /* Increased space below name fields */
+}
+
+.name-fields input {
+    width: 100%; /* Make inputs take full width */
+    margin-bottom: 10px; /* Space between the two input fields */
 }
 
 input, select, button {
-    margin-bottom: 15px;
-    padding: 10px;
+    padding: 12px;
     font-size: 1rem;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 12px;
+}
+
+input + select,
+select + button {
+    margin-top: 5px; /* Add spacing between date, time, and button */
 }
 
 button {
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
+    font-weight: bold;
 }
 
 button:hover {
     background-color: #45a049;
+}
+
+/* Added spacing below the button */
+form button {
+    margin-bottom: 10px; /* Space between button and the next section */
+}
+
+/* Added spacing above the "Lista programări" */
+#appointments-list h2 {
+    margin-top: 30px; /* Add space before "Lista programări" */
+    margin-bottom: 20px; /* Space between the heading and the list */
 }
 
 #appointments-list ul {
@@ -54,8 +99,8 @@ button:hover {
 
 #appointments-list li {
     background-color: #f9f9f9;
-    padding: 10px;
-    margin: 5px 0;
+    padding: 15px; /* Increased padding */
+    margin: 10px 0; /* Increased margin between items */
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
@@ -66,8 +111,44 @@ button:hover {
     color: white;
     border: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 #appointments-list button:hover {
     background-color: #e53935;
+}
+
+/* New Styles for Available and Booked options */
+option.available {
+    background-color: #d4fdd4; /* Light green */
+    color: #2e7d32; /* Darker green text */
+    font-weight: bold; /* Bold text */
+}
+
+option.booked {
+    background-color: #ffd4d4; /* Light red */
+    color: #757575; /* Grey text */
+    font-weight: bold; /* Bold text */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Updated styles for #date and #time */
+#date, #time {
+    background-color: white; /* White background */
+    color: #757575; /* Grey text color */
+    border: 1px solid #ddd; /* Border to match form inputs */
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 12px; /* More rounded corners for the select dropdown */
 }

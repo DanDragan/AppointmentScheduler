@@ -3,126 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dental Appointment Scheduler</title>
+    <title>Programări online</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Include Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <!-- Include FontAwesome for the chevron down icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Dental Appointment Scheduler</h1>
+        <h1>Programări online</h1>
 
         <form id="appointment-form">
-            <input type="text" id="name" placeholder="Enter your name" required />
-            <input type="date" id="date" required />
+            <div class="name-fields">
+                <input type="text" id="last-name" placeholder="Nume" required />
+                <input type="text" id="first-name" placeholder="Prenume" required />
+            </div>
+            <input type="text" id="date" placeholder="Selectează zi" required />
             <select id="time" required>
-                <option value="">Select time</option>
-                <option value="9:00">9:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
+                <!-- Time options dynamically updated -->
             </select>
-            <button type="submit">Book Appointment</button>
+            <button type="submit">Programează-te</button>
         </form>
 
         <div id="appointments-list">
-            <h2>Existing Appointments</h2>
+            <h2>Lista programări</h2>
             <ul id="appointments"></ul>
         </div>
     </div>
 
-    <script>
-        const form = document.getElementById('appointment-form');
-        const nameInput = document.getElementById('name');
-        const dateInput = document.getElementById('date');
-        const timeInput = document.getElementById('time');
-        const appointmentsList = document.getElementById('appointments');
-
-        // Handle form submission to book an appointment
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const name = nameInput.value;
-            const date = dateInput.value;
-            const time = timeInput.value;
-
-            // Send POST request to create an appointment
-            const response = await fetch('/api/appointments', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, date, time }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                alert('Appointment booked!');
-                loadAppointments();  // Reload appointments and remove booked slots
-            } else {
-                alert(data.message);  // Show error message
-            }
-        });
-
-        // Load appointments from the server
-        async function loadAppointments() {
-            const response = await fetch('/api/appointments');
-            const data = await response.json();
-
-            // Clear the existing appointments and time slots
-            appointmentsList.innerHTML = '';
-            resetTimeSlotDropdown();
-
-            // Loop through appointments and display them
-            data.forEach(appointment => {
-                const li = document.createElement('li');
-                li.innerHTML = `${appointment.name} - ${appointment.date} at ${appointment.time}
-                    <button onclick="deleteAppointment('${appointment._id}')">Delete</button>`;
-                appointmentsList.appendChild(li);
-
-                // Remove the booked time slot from the dropdown
-                removeBookedSlot(appointment.date, appointment.time);
-            });
-        }
-
-        // Remove the booked time slot from the dropdown
-        function removeBookedSlot(date, time) {
-            const dropdown = document.getElementById('time');
-            const options = dropdown.getElementsByTagName('option');
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].value === time) {
-                    options[i].setAttribute('disabled', 'true');  // Disable the booked slot
-                    break;
-                }
-            }
-        }
-
-        // Reset the time slot dropdown when reloading appointments
-        function resetTimeSlotDropdown() {
-            const dropdown = document.getElementById('time');
-            const options = dropdown.getElementsByTagName('option');
-            for (let i = 0; i < options.length; i++) {
-                options[i].removeAttribute('disabled');
-            }
-        }
-
-        // Handle the deletion of an appointment
-        async function deleteAppointment(id) {
-            const response = await fetch(`/api/appointments/${id}`, { method: 'DELETE' });
-            if (response.ok) {
-                alert('Appointment deleted');
-                loadAppointments();  // Reload appointments after deletion
-            } else {
-                alert('Error deleting appointment');
-            }
-        }
-
-        // Initial load of appointments
-        loadAppointments();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!-- Include Flatpickr JS -->
+    <script src="app.js"></script> <!-- External JS file (if needed) -->
 </body>
 </html>
