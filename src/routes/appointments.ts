@@ -27,6 +27,12 @@ router.post('/appointments', async (req: Request, res: Response) => {
         return res.status(400).json({ message: 'Appointments are only available between 9:00 to 21:00' });
     }
 
+    // Check if an appointment already exists for the selected date and time
+    const existingAppointment = await AppointmentModel.findOne({ date, time });
+    if (existingAppointment) {
+        return res.status(400).json({ message: 'This time slot is already booked' });
+    }
+
     const newAppointment = new AppointmentModel({ name, date, time });
     try {
         await newAppointment.save();
