@@ -1,4 +1,4 @@
-/* Existing CSS */
+/* Global Styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,7 +17,7 @@ body {
 
 .container {
     max-width: 600px;
-    width: 100%; /* Allow the container to expand fully within the screen width */
+    width: 100%;
     height: auto; /* Allow the container to grow with its content */
     background-color: #fff; /* White background for the form container */
     padding: 30px; /* Increased padding for spacing */
@@ -34,40 +34,25 @@ h1 {
     margin-bottom: 30px; /* Added more space after title */
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Added space between form elements */
+/* Form Group */
+.form-group {
+    margin-bottom: 20px; /* Consistent spacing between form elements */
 }
 
-form input, form select, form button {
-    margin-bottom: 15px; /* Same margin for all inputs, selects, and buttons */
-}
-
-form button {
-    margin-bottom: 0; /* Remove margin from the last button */
-}
-
-.name-fields {
-    display: block; /* Change to block to stack inputs vertically */
-    margin-bottom: 10px; /* Increased space below name fields */
-}
-
-.name-fields input {
-    width: 100%; /* Make inputs take full width */
-    margin-bottom: 10px; /* Space between the two input fields */
-}
-
+/* Form Fields */
 input, select, button {
+    width: 100%; /* Make all elements take full width */
     padding: 12px;
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 12px;
+    box-sizing: border-box; /* Ensure padding doesn't overflow */
 }
 
-input + select,
-select + button {
-    margin-top: 5px; /* Add spacing between date, time, and button */
+/* Date Picker and Time Selector */
+input, select {
+    background-color: white;
+    color: #757575;
 }
 
 button {
@@ -75,21 +60,20 @@ button {
     color: white;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
+/* Button Hover Effect */
 button:hover {
     background-color: #45a049;
 }
 
-/* Added spacing below the button */
-form button {
-    margin-bottom: 10px; /* Space between button and the next section */
-}
-
-/* Added spacing above the "Lista programări" */
+/* List Styles */
 #appointments-list h2 {
-    margin-top: 30px; /* Add space before "Lista programări" */
-    margin-bottom: 20px; /* Space between the heading and the list */
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
 }
 
 #appointments-list ul {
@@ -99,13 +83,14 @@ form button {
 
 #appointments-list li {
     background-color: #f9f9f9;
-    padding: 15px; /* Increased padding */
-    margin: 10px 0; /* Increased margin between items */
+    padding: 15px;
+    margin: 10px 0;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
 }
 
+/* Delete Button in Appointments */
 #appointments-list button {
     background-color: #f44336;
     color: white;
@@ -118,37 +103,30 @@ form button {
     background-color: #e53935;
 }
 
-/* New Styles for Available and Booked options */
+/* Available and Booked Options */
 option.available {
     background-color: #d4fdd4; /* Light green */
     color: #2e7d32; /* Darker green text */
-    font-weight: bold; /* Bold text */
+    font-weight: bold;
 }
 
 option.booked {
     background-color: #ffd4d4; /* Light red */
     color: #757575; /* Grey text */
-    font-weight: bold; /* Bold text */
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
     font-weight: bold;
-    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
-}
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
 
-/* Updated styles for #date and #time */
-#date, #time {
-    background-color: white; /* White background */
-    color: #757575; /* Grey text color */
-    border: 1px solid #ddd; /* Border to match form inputs */
-    border-radius: 5px;
-    padding: 12px;
-    font-size: 1rem;
-    border-radius: 12px; /* More rounded corners for the select dropdown */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    input, select, button {
+        font-size: 1rem;
+    }
 }

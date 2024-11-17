@@ -55,8 +55,12 @@ async function loadAppointments() {
     appointmentsList.innerHTML = '';
     data.forEach(appointment => {
         const li = document.createElement('li');
-        li.innerHTML = `${appointment.name} - ${appointment.date} at ${appointment.time}
-            <button onclick="deleteAppointment('${appointment._id}')">Delete</button>`;
+        li.innerHTML = `${appointment.name} - ${appointment.date} ora ${appointment.time}
+            <div class="del-btn">
+                <button onclick="deleteAppointment('${appointment._id}')">
+                    Delete
+                </button>
+            </div>`;
         appointmentsList.appendChild(li);
     });
 
